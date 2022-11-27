@@ -1,4 +1,5 @@
 class Tomato:
+
     stage = ('Отсутствует', 'Цветение', 'Зеленый', 'Красный')
 
     def __init__(self, index=1):
@@ -8,7 +9,8 @@ class Tomato:
     def grow(self):
         if self._index != 3:
             self._index += 1
-        print(f'Состояние помидора {self.stage[self._index]}')
+            return self._index
+        print(f'Состояние помидора стало: {self.stage[self._index]}')
 
     def is_ripe(self):
         if self._index == 3:
@@ -16,17 +18,17 @@ class Tomato:
 
 
 class TomatoBush():
+
     def __init__(self, count):
         self.tomatoes = [Tomato()] * count
 
     def grow_all(self):
-        for i in self.tomatoes:
-            i.grow()
+        self.tomatoes[0].grow()
         print('Куст растет')
 
     def all_are_ripe(self):
         temp = all(i.is_ripe() for i in self.tomatoes)
-        print('Все созрело, все помидоры красные') if temp else print(f'Состояние помидоров: {self.tomatoes[0]._state}')
+        print('Все созрело, все помидоры красные') if temp else print(f'Состояние помидоров: {self.tomatoes[0].stage[self.tomatoes[0]._index]}')
         return temp
 
 
@@ -37,6 +39,7 @@ class TomatoBush():
 
 
 class Gardener():
+
     def __init__(self, name, plant):
         self.name = name
         self._plant = plant
@@ -58,6 +61,8 @@ class Gardener():
 
 tom = TomatoBush(4)
 gar = Gardener('Mark', tom)
+gar.harvest()
+gar.work()
 gar.harvest()
 gar.work()
 gar.harvest()
