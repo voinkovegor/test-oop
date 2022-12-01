@@ -80,16 +80,16 @@ class Tree:
         elif s == p.right:
              p.right = temp
 
-    def find_smallest(self, node, parent):
-        if not node.left:
-            return node, parent
-        self.find_smallest(node.left, node)
+    def __find_smallest(self, node, parent):
+        if node.left:
+            return self.__find_smallest(node.left, node)
+        return node, parent
 
     def __del_two_childs(self, s, p):
-        smallest_right, parent_smallest_right = self.find_smallest(s.right, s)
-        self.__del_one_child(smallest_right, parent_smallest_right)
-        s.data = smallest_right.data
+        smallest_right, parent_smallest_right = self.__find_smallest(s.right, s)
 
+        s.data = smallest_right.data
+        self.__del_one_child(smallest_right, parent_smallest_right)
 
     def del_node(self, value):
 
